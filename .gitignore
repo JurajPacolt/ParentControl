@@ -7,3 +7,7 @@
 /ParentControlCommon/bin
 /ParentControlCommon/obj
 /ParentControlClient/ParentControlClient.csproj.user
+/ParentControlInstaller/bin
+/ParentControlInstaller/obj
+/ParentControlInstallerCustomAction/bin
+/ParentControlInstallerCustomAction/obj

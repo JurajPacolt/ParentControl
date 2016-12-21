@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<WixLocalization Culture="sk-SK" Codepage="1250" xmlns="http://schemas.microsoft.com/wix/2006/localization">
+  <String Id="Language">1051</String>
+  <String Id="ReadyToInstall">Pripravené na inštaláciu</String>
+  <String Id="InstallerIsReady">Inštalátor je pripravený začať vašu inštaláciu.</String>
+  <String Id="InstallationWasSuccessful">Inštalácia bola úspešne dokončená.</String>
+  <String Id="Install">Inštalovať</String>
+  <String Id="Cancel">Zrušiť</String>
+  <String Id="ClickToInstall">Kliknite na "Ďalej", pokiaľ chcete začať inštaláciu.</String>
+  <String Id="NewerVersionIsInstalled">Novšia verzia ParentControl je už nainštalovaná.</String>
+  <String Id="Next">Ďalej</String>
+  <String Id="Previous">Späť</String>
+  <String Id="ChoiceDlgRadioButton1">Inštalácia správy rodičovskej kontroly</String>
+  <String Id="ChoiceDlgRadioButton2">Inštalácia kontrolovanej stanice</String>
+  <String Id="Done">Dokončiť</String>
+  <String Id="SettingInstallationType">Nastavenie typu inštalácie</String>
+  <String Id="WaitingForChoiceInstallationType">Čaká sa na výber typu inštalácie.</String>
+  <String Id="SettingsInstallationTitle">Nastavenia komunikácie</String>
+  <String Id="SettingsInstallationSubTitle1">Komunikačné parametre pre management rodičovskej kontroly.</String>
+  <String Id="SettingsInstallationSubTitle2">Komunikačné parametre pre stanicu rodičovskej kontroly.</String>
+  <String Id="TestConnection">Test spojenia</String>
+  <String Id="ListenerHost">Názov počítača / IP adresa</String>
+  <String Id="ListenerPortNumber">Číslo portu</String>
+  <String Id="SecondsRemaining">čas do ukončenia [sekundy] ...</String>
+  <String Id="CompilingInstallationScript">Zostavovanie inštalačného skriptu ...</String>
+  <String Id="PleaseWaitWhileWindowsConfigures">Prosím vydržte chvílu, prebieha inštalácia</String>
+  <String Id="Dot">.</String>
+  <String Id="TestConnectionSuccessful">Testovacie spojenie na službu prebehlo úspešne.</String>
+  <String Id="TestConnectionFailed">Nepodarilo sa pripojiť na vzdialenú službu.</String>
+  <String Id="Information">INFORMÁCIA</String>
+  <String Id="Warning">UPOZORNENIE</String>
+  <String Id="CouldNotWriteSettings">Nepodarilo sa zapísať nastavenia do konfiguračného súboru.</String>
+</WixLocalization>

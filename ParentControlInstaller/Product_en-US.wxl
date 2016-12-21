@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<WixLocalization Culture="en-US" Codepage="1252" xmlns="http://schemas.microsoft.com/wix/2006/localization">
+  <String Id="Language">1033</String>
+  <String Id="ReadyToInstall">Ready to Install</String>
+  <String Id="InstallerIsReady">The installer is ready to begin the installation.</String>
+  <String Id="InstallationWasSuccessful">Installation was successful.</String>
+  <String Id="Install">Install</String>
+  <String Id="Cancel">Cancel</String>
+  <String Id="ClickToInstall">Click "Next" to begin the installation.</String>
+  <String Id="NewerVersionIsInstalled">A newer version of ParentControl is already installed.</String>
+  <String Id="Next">Next</String>
+  <String Id="Previous">Previous</String>
+  <String Id="ChoiceDlgRadioButton1">Installation of the management of parent control</String>
+  <String Id="ChoiceDlgRadioButton2">Installation of the workstation for parental control</String>
+  <String Id="Done">Done</String>
+  <String Id="SettingInstallationType">Setting installation type</String>
+  <String Id="WaitingForChoiceInstallationType">Waiting for your choice with installation type.</String>
+  <String Id="SettingsInstallationTitle">Communication settings</String>
+  <String Id="SettingsInstallationSubTitle1">Communication parameters for management of the parental control.</String>
+  <String Id="SettingsInstallationSubTitle2">Communication parameters for workstation under parental control.</String>
+  <String Id="TestConnection">Test connection</String>
+  <String Id="ListenerHost">Hostname / IP address</String>
+  <String Id="ListenerPortNumber">Listener port number</String>
+  <String Id="SecondsRemaining">seconds remaining ...</String>
+  <String Id="CompilingInstallationScript">Compiling installation script ...</String>
+  <String Id="PleaseWaitWhileWindowsConfigures">Please wait while Windows configures</String>
+  <String Id="Dot">.</String>
+  <String Id="TestConnectionSuccessful">Test connection to service successful.</String>
+  <String Id="TestConnectionFailed">Could not connect to service.</String>
+  <String Id="Information">INFORMATION</String>
+  <String Id="Warning">WARNING</String>
+  <String Id="CouldNotWriteSettings">Could not write settings to config file.</String>
+</WixLocalization>

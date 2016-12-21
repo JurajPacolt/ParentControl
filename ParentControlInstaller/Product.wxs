@@ -1,0 +1,264 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+  
+	<Product Id="*" Name="ParentControl" Language="!(loc.Language)" Version="1.0.0.0" Manufacturer="Juraj Pacolt" UpgradeCode="9ee0fa20-a3cf-497b-9dfc-59bc5d8a9ca3">
+		<Package InstallerVersion="200" Compressed="yes" InstallScope="perMachine" />
+    
+		<MajorUpgrade DowngradeErrorMessage="!(NewerVersionIsInstalled)" />
+		<MediaTemplate EmbedCab="yes" />
+    
+    <Property Id="INSTALLLEVEL" Value="1" />
+    <Property Id="LISTENERHOST" Value="localhost" />
+    <Property Id="PORTNUMBER" Value="5556" />
+    <Property Id="UNINSTALLFLAG" Value="0" />
+    
+    <Property Id="TestConnectionSuccessfulString" Value="!(loc.TestConnectionSuccessful)" />
+    <Property Id="TestConnectionFailedString" Value="!(loc.TestConnectionFailed)" />
+    <Property Id="InformationString" Value="!(loc.Information)" />
+    <Property Id="WarningString" Value="!(loc.Warning)" />
+    <Property Id="CouldNotWriteSettingsString" Value="!(loc.CouldNotWriteSettings)" />
+    
+    <Binary 
+      Id="ParentControlInstallerCustomAction" 
+      SourceFile="..\ParentControlInstallerCustomAction\bin\Debug\ParentControlInstallerCustomAction.CA.dll" />
+    
+    <CustomAction Id="OverrideConfigCustomAction" 
+      BinaryKey="ParentControlInstallerCustomAction" 
+      DllEntry="OverrideConfigCustomAction" 
+      Execute="deferred" Impersonate="no" Return="check" />
+
+    <CustomAction Id="CheckConnectionCustomAction" 
+      BinaryKey="ParentControlInstallerCustomAction" 
+      DllEntry="CheckConnectionCustomAction" 
+      Execute="immediate" Return="check" />
+
+    <CustomAction Id="FindFreePortCustomAction" 
+      BinaryKey="ParentControlInstallerCustomAction" 
+      DllEntry="FindFreePortCustomAction" 
+      Execute="immediate" Return="check" />
+
+    <CustomAction Id="SetCustomActionPropertyValues"
+      Property="OverrideConfigCustomAction"
+      Value="INSTALLFOLDER=[INSTALLFOLDER];LISTENERHOST=[LISTENERHOST];PORTNUMBER=[PORTNUMBER];UNINSTALLFLAG=[UNINSTALLFLAG]" />
+    
+    <CustomAction Id="UninstallFlagCustomAction" Property="UNINSTALLFLAG" Value="1" />
+    
+    <Directory Id="TARGETDIR" Name="SourceDir">
+			<Directory Id="ProgramFilesFolder">
+        <Directory Id="INSTALLFOLDER" Name="ParentControl">
+          <Directory Id="INSTALLFOLDER01" Name="en-US" />
+          <Directory Id="INSTALLFOLDER02" Name="sk-SK" />
+          <Directory Id="INSTALLFOLDER03" Name="x64" />
+          <Directory Id="INSTALLFOLDER04" Name="x86" />
+          <Directory Id="INSTALLFOLDER05" Name="Logs" />
+        </Directory>
+      </Directory>
+		</Directory>
+    
+    <Feature Id="OnlyWorkstation" Title="ParentControl" Level="1">
+      <Condition Level="0">
+        <![CDATA[INSTALLLEVEL = "2"]]>
+      </Condition>
+      <Component Id="ProductComponent" Directory="INSTALLFOLDER">
+        <File Source="../ParentControl/bin/Debug/ParentControlManager.exe" />
+        <File Source="../ParentControl/bin/Debug/ParentControlManager.pdb" />
+      </Component>
+      <!-- This lines apply background service, something like mini-server. -->
+      <Component Id="MyServiceComponent" Guid="99edc7df-cfc6-4309-8ae7-0cafed50bd90" Directory="INSTALLFOLDER">
+          <File Id="ParentControl" Source="../ParentControl/bin/Debug/ParentControl.exe" />
+          <ServiceInstall 
+            Id="ParentControlServiceInstall" Name="Parent Control" DisplayName="Parent Control" 
+            Type="ownProcess" Start="auto" ErrorControl="normal" 
+            Description="Parent Control" 
+            Account="[SYSTEMACCOUNT]" Password="[SYSTEMPASSWORD]" 
+          LoadOrderGroup="Administrators" Vital="yes" />
+          <ServiceControl 
+            Id="StartWixServiceInstaller" Name="Parent Control" 
+            Start="install" Stop="both" Remove="uninstall" Wait="yes" />
+      </Component>
+    </Feature>
+
+    <Feature Id="WorkstationAndParentManagement" Title="ParentControl" Level="1">
+      <Component Guid="5f213114-4c42-4b6e-b248-3c37dd1e8941" Id="ProductComponentWSPM01" Directory="INSTALLFOLDER01">
+        <File Id="f001" Source="../ParentControl/bin/Debug/en-US/ParentControlClient.resources.dll" />
+        <File Id="f002" Source="../ParentControl/bin/Debug/en-US/ParentControlManager.resources.dll" />
+      </Component>
+      <Component Guid="a9c260a2-2f3c-49c6-9cf9-a7c599388b29" Id="ProductComponentWSPM02" Directory="INSTALLFOLDER02">
+        <File Id="f003" Source="../ParentControl/bin/Debug/sk-SK/ParentControlClient.resources.dll" />
+        <File Id="f004" Source="../ParentControl/bin/Debug/sk-SK/ParentControlManager.resources.dll" />
+      </Component>
+      <Component Guid="f018db5b-ffc7-4ad1-8ff3-4bed4125b4b5" Id="ProductComponentWSPM03" Directory="INSTALLFOLDER03">
+        <File Id="f005" Source="../ParentControl/bin/Debug/x64/SQLite.Interop.dll" />
+      </Component>
+      <Component Guid="03da13c8-133a-40ba-b8b1-41b96a1e9b5b" Id="ProductComponentWSPM04" Directory="INSTALLFOLDER04">
+        <File Id="f006" Source="../ParentControl/bin/Debug/x86/SQLite.Interop.dll" />
+      </Component>
+      <Component Guid="3a337ede-b6c6-45c7-81df-cd5cc18d55b0" Id="ProductComponentWSPM" Directory="INSTALLFOLDER">
+        <CreateFolder Directory="INSTALLFOLDER05" />
+        <File Source="../ParentControl/bin/Debug/Common.Logging.dll" />
+        <File Source="../ParentControl/bin/Debug/Common.Logging.pdb" />
+        <File Source="../ParentControl/bin/Debug/Common.Logging.xml" />
+        <File Source="../ParentControl/bin/Debug/Common.Logging.Core.dll" />
+        <File Source="../ParentControl/bin/Debug/Common.Logging.Core.pdb" />
+        <File Source="../ParentControl/bin/Debug/Common.Logging.Core.xml" />
+        <File Source="../ParentControl/bin/Debug/log4net.dll" />
+        <File Source="../ParentControl/bin/Debug/log4net.xml" />
+        <File Source="../ParentControl/bin/Debug/Newtonsoft.Json.dll" />
+        <File Source="../ParentControl/bin/Debug/Newtonsoft.Json.xml" />
+        <File Source="../ParentControl/bin/Debug/ParentControl.exe" />
+        <File Source="../ParentControl/bin/Debug/ParentControl.pdb" />
+        <File Source="../ParentControl/bin/Debug/ParentControl.exe.config" />
+        <File Source="../ParentControl/bin/Debug/ParentControl.vshost.exe" />
+        <File Source="../ParentControl/bin/Debug/ParentControl.vshost.exe.config" />
+        <File Source="../ParentControl/bin/Debug/ParentControl.vshost.exe.manifest" />
+        <File Source="../ParentControl/bin/Debug/ParentControlClient.exe" />
+        <File Source="../ParentControl/bin/Debug/ParentControlClient.pdb" />
+        <File Source="../ParentControl/bin/Debug/ParentControlCommon.dll" />
+        <File Source="../ParentControl/bin/Debug/ParentControlCommon.pdb" />
+        <File Source="../ParentControl/bin/Debug/ParentControlObjectModel.dll" />
+        <File Source="../ParentControl/bin/Debug/ParentControlObjectModel.pdb" />
+        <File Source="../ParentControl/bin/Debug/Quartz.dll" />
+        <File Source="../ParentControl/bin/Debug/Quartz.pdb" />
+        <File Source="../ParentControl/bin/Debug/Quartz.xml" />
+        <File Source="../ParentControl/bin/Debug/System.Data.SQLite.dll" />
+        <File Source="../ParentControl/bin/Debug/System.Data.SQLite.xml" />
+      </Component>
+    </Feature>
+    
+    <UI>
+      <Property Id="DefaultUIFont">DlgFont8</Property>
+      
+      <!-- BEGIN - WelcomeDlg -->
+      <Dialog Id="WelcomeDlg" Width="370" Height="270" Title="[ProductName] Setup" NoMinimize="yes">
+        
+        <Control Id="Title" Type="Text" X="15" Y="6" Width="200" Height="15" Transparent="yes" NoPrefix="yes">
+          <Text>{\DlgTitleFont}!(loc.ReadyToInstall)</Text>
+        </Control>
+        <Control Id="Description" Type="Text" X="25" Y="23" Width="280" Height="15" Transparent="yes" NoPrefix="yes">
+          <Text>!(loc.InstallerIsReady)</Text>
+        </Control>
+        <Control Id="BannerLine" Type="Line" X="0" Y="44" Width="370" Height="0" />
+        
+        <Control Id="Text" Type="Text" X="25" Y="70" Width="320" Height="20">
+          <Text>!(loc.ClickToInstall)</Text>
+        </Control>
+        
+        <Control Id="Next" Type="PushButton" X="248" Y="243" Width="56" Height="17" Default="yes" Text="!(loc.Next)">
+          <Publish Event="NewDialog" Value="ChoiceDlg" />
+        </Control>
+        <Control Id="Cancel" Type="PushButton" Width="56" Height="17" X="304" Y="243" Text="!(loc.Cancel)">
+          <Publish Event="EndDialog" Value="Exit" />
+        </Control>
+        
+      </Dialog>
+      <!-- END - WelcomeDlg -->
+      
+      <!-- BEGIN - ChoiceDlg -->
+      <Dialog Id="ChoiceDlg" Width="370" Height="270" Title="[ProductName] Setup" NoMinimize="yes">
+        
+        <Control Id="Title" Type="Text" X="15" Y="6" Width="200" Height="15" Transparent="yes" NoPrefix="yes">
+          <Text>{\DlgTitleFont}!(loc.SettingInstallationType)</Text>
+        </Control>
+        <Control Id="Description" Type="Text" X="25" Y="23" Width="280" Height="15" Transparent="yes" NoPrefix="yes">
+          <Text>!(loc.WaitingForChoiceInstallationType)</Text>
+        </Control>
+        <Control Id="BannerLine" Type="Line" X="0" Y="44" Width="370" Height="0" />
+        
+        <Control Id="ChoiceValue" Type="RadioButtonGroup" Property="INSTALLLEVEL" X="25" Y="70" Width="250" Height="60">
+          <RadioButtonGroup Property="INSTALLLEVEL">
+            <RadioButton Text="!(loc.ChoiceDlgRadioButton1)" Value="1" X="0" Y="0" Width="250" Height="20" />
+            <RadioButton Text="!(loc.ChoiceDlgRadioButton2)" Value="2" X="0" Y="20" Width="250" Height="20" />
+          </RadioButtonGroup>
+        </Control>
+        
+        <Control Id="Next" Type="PushButton" Width="56" Height="17" X="248" Y="243" Default="yes" Text="!(loc.Next)">
+          <Publish Event="NewDialog" Value="SettingsDlg">1</Publish>
+        </Control>
+        <Control Id="Previous" Type="PushButton" Width="56" Height="17" X="304" Y="243" Text="!(loc.Previous)">
+          <Publish Event="NewDialog" Value="WelcomeDlg">1</Publish>
+        </Control>
+      
+      </Dialog>
+      <!-- END - ChoiceDlg -->
+
+      <!-- BEGIN - SettingsDlg -->
+      <Dialog Id="SettingsDlg" Width="370" Height="270" Title="[ProductName] Setup" NoMinimize="yes">
+        
+        <Control Id="Title" Type="Text" X="15" Y="6" Width="200" Height="15" Transparent="yes" NoPrefix="yes">
+          <Text>{\DlgTitleFont}!(loc.SettingsInstallationTitle)</Text>
+        </Control>
+        <Control Id="Description1" Type="Text" X="25" Y="23" Width="280" Height="15" Transparent="yes" NoPrefix="yes">
+          <Text>!(loc.SettingsInstallationSubTitle1)</Text>
+          <Condition Action="show">(INSTALLLEVEL="1")</Condition>
+          <Condition Action="hide">(INSTALLLEVEL="2")</Condition>
+        </Control>
+        <Control Id="Description2" Type="Text" X="25" Y="23" Width="280" Height="15" Transparent="yes" NoPrefix="yes">
+          <Text>!(loc.SettingsInstallationSubTitle2)</Text>
+          <Condition Action="hide">(INSTALLLEVEL="1")</Condition>
+          <Condition Action="show">(INSTALLLEVEL="2")</Condition>
+        </Control>
+        <Control Id="BannerLine" Type="Line" X="0" Y="44" Width="370" Height="0" />
+        
+        <Control Id="ListenerHostText" Type="Text" X="25" Y="73" Width="110" Height="15" Text="!(loc.ListenerHost)" />
+        <Control Id="ListenerHost" Type="Edit" Property="LISTENERHOST" X="135" Y="70" Width="150" Height="17" />
+        <Control Id="PortNumberText" Type="Text" X="25" Y="90" Width="110" Height="15" Text="!(loc.ListenerPortNumber)" Integer="yes" />
+        <Control Id="PortNumber" Type="Edit" Property="PORTNUMBER" X="135" Y="87" Width="30" Height="17" />
+        
+        <Control Id="TestConnection" Type="PushButton" Width="80" Height="17" X="10" Y="243" Default="yes" Text="!(loc.TestConnection)">
+          <Condition Action="enable">(INSTALLLEVEL="2")</Condition>
+          <Condition Action="disable">(INSTALLLEVEL="1")</Condition>
+          <Publish Event="DoAction" Value="CheckConnectionCustomAction">1</Publish>
+        </Control>
+
+        <Control Id="Next" Type="PushButton" Width="56" Height="17" X="248" Y="243" Default="yes" Text="!(loc.Next)">
+          <Publish Event="EndDialog" Value="Return">1</Publish>
+        </Control>
+        <Control Id="Previous" Type="PushButton" Width="56" Height="17" X="304" Y="243" Text="!(loc.Previous)">
+          <Publish Event="NewDialog" Value="ChoiceDlg">1</Publish>
+        </Control>
+      
+      </Dialog>
+      <!-- END - SettingsDlg -->
+      
+      <!-- BEGIN - ProgressDlg - Installation -->
+      <Dialog Id="ProgressDlg" Width="280" Height="110" Title="[ProductName] Setup" Modeless="yes">
+        <Control Id="PleaseWait" Type="Text" X="44" Y="8" Width="230" Height="37" TabSkip="no" >
+          <Text>!(loc.PleaseWaitWhileWindowsConfigures) [ProductName]!(loc.Dot)</Text>
+        </Control>
+        <Control Id="Progress" Type="ProgressBar" X="7" Y="87" Width="200" Height="14">
+          <Subscribe Event="SetProgress" Attribute="Progress"/>
+        </Control>
+        <Control Id="ActionText" Type="Text" X="8" Y="40" Width="260" Height="12" Transparent="yes">
+          <Subscribe Event="ActionText" Attribute="Text"/>
+        </Control>
+        <Control Id="ActionData" Type="Text" X="8" Y="55" Width="260" Height="12" Transparent="yes">
+          <Subscribe Event="ActionData" Attribute="Text"/>
+        </Control>
+        <Control Id="TimeRemaining" Type="Text" X="8" Y="70" Width="260" Height="12" Transparent="yes">
+          <Subscribe Event="TimeRemaining" Attribute="TimeRemaining"/>
+          <Subscribe Event="ScriptInProgess" Attribute="Text"/>
+        </Control>
+      </Dialog>
+      <UIText Id="ScriptInProgress">!(loc.CompilingInstallationScript)</UIText>
+      <UIText Id="TimeRemaining">[2] !(loc.SecondsRemaining)</UIText>
+      <!-- END - ProgressDlg - Installation -->
+
+      <TextStyle Id="DlgFont8" FaceName="Tahoma" Size="8" />
+      <TextStyle Id="DlgTitleFont" FaceName="Tahoma" Size="8" Bold="yes" />
+
+      <InstallUISequence>
+        <Custom Action="FindFreePortCustomAction" Before="WelcomeDlg" />
+        <Show Dialog="WelcomeDlg" After="CostFinalize" />
+        <Show Dialog="ProgressDlg" After="WelcomeDlg" />
+      </InstallUISequence>
+    </UI>
+    
+    <InstallExecuteSequence>
+      <Custom Action="UninstallFlagCustomAction" Before="SetCustomActionPropertyValues">(NOT UPGRADINGPRODUCTCODE) AND (REMOVE="ALL")</Custom>
+      <Custom Action="SetCustomActionPropertyValues" Before="OverrideConfigCustomAction" />
+      <Custom Action="OverrideConfigCustomAction" Before="InstallFinalize" />
+    </InstallExecuteSequence>
+    
+  </Product>
+  
+</Wix>
