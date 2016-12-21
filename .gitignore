@@ -1,1 +1,4 @@
 /packages
+/ParentControl/bin
+/ParentControl/obj
+/ParentControl/ParentControl.csproj.user
