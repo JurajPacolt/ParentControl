@@ -2,3 +2,5 @@
 /ParentControl/bin
 /ParentControl/obj
 /ParentControl/ParentControl.csproj.user
+/ParentControlClient/bin
+/ParentControlClient/obj
