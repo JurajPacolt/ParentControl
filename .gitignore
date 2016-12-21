@@ -4,3 +4,5 @@
 /ParentControl/ParentControl.csproj.user
 /ParentControlClient/bin
 /ParentControlClient/obj
+/ParentControlCommon/bin
+/ParentControlCommon/obj
