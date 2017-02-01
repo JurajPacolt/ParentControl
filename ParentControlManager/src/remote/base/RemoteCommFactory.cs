@@ -3,12 +3,12 @@ using log4net;
 using Newtonsoft.Json;
 using System;
 using System.ComponentModel;
-using System.IO;
 using System.Net;
 using System.Net.Http;
 using System.Net.Sockets;
 using System.Text;
 using System.Windows.Forms;
+using System.Threading;
 
 namespace ParentControlManager.Remote.Base
 {
@@ -120,9 +120,24 @@ namespace ParentControlManager.Remote.Base
                             }
                             else
                             {
-                                ParentControl.ObjectModel.Exception exception =
-                                    (ParentControl.ObjectModel.Exception)JsonConvert.DeserializeObject(
-                                        json, typeof(ParentControl.ObjectModel.Exception));
+                                ParentControl.ObjectModel.Exception exception = null;
+                                try
+                                {
+                                    exception =
+                                        (ParentControl.ObjectModel.Exception)JsonConvert.DeserializeObject(
+                                            json, typeof(ParentControl.ObjectModel.Exception));
+                                }
+                                catch (Exception ex)
+                                {
+                                    logger.Error(ex.Message, ex);
+                                    new Thread(new ThreadStart(delegate
+                                    {
+                                        MessageBox.Show("Failed JSON message: \n\n" + json,
+                                            ParentControlManager.Strings.GetString("error"),
+                                            MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                                    })).Start();
+                                    throw ex;
+                                }
                                 switch (exception.TypeException)
                                 {
                                     case ParentControl.ObjectModel.Exception.WARNING:

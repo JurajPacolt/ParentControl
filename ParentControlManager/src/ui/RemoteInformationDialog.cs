@@ -39,19 +39,28 @@ namespace ParentControlManager.UI
         {
             lock (synobj)
             {
-                ObservedValuesRemote remote = new ObservedValuesRemote(connection.Hostname, connection.Port.Value);
-                ObservedValues ov = remote.GetObservedValues();
-
-                txtActualDate.Text =
-                    (ov.ActualDate != null
-                    ? ov.ActualDate.Value.ToString(Thread.CurrentThread.CurrentCulture.DateTimeFormat.ShortDatePattern)
-                    : "");
-                txtDuration.Text = "";
-                if (ov.Duration != null)
+                try
                 {
-                    TimeSpan t = TimeSpan.FromMilliseconds(ov.Duration.Value);
-                    string time = string.Format("{0:D2}h:{1:D2}m:{2:D2}s:{3:D3}ms", t.Hours, t.Minutes, t.Seconds, t.Milliseconds);
-                    txtDuration.Text = time;
+                    ObservedValuesRemote remote = new ObservedValuesRemote(connection.Hostname, connection.Port.Value);
+                    ObservedValues ov = remote.GetObservedValues();
+
+                    txtActualDate.Text =
+                        (ov.ActualDate != null
+                        ? ov.ActualDate.Value.ToString(Thread.CurrentThread.CurrentCulture.DateTimeFormat.ShortDatePattern)
+                        : "");
+                    txtDuration.Text = "";
+                    if (ov.Duration != null)
+                    {
+                        TimeSpan t = TimeSpan.FromMilliseconds(ov.Duration.Value);
+                        string time = string.Format("{0:D2}h:{1:D2}m:{2:D2}s:{3:D3}ms", t.Hours, t.Minutes, t.Seconds, t.Milliseconds);
+                        txtDuration.Text = time;
+                    }
+                }
+                catch (System.Exception ex)
+                {
+                    timer1.Stop();
+                    timer1.Dispose();
+                    throw ex;
                 }
             }
         }
