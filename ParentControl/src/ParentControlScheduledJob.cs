@@ -4,6 +4,7 @@ using ParentControl.DAO;
 using ParentControl.ObjectModel;
 using Quartz;
 using System;
+using ParentControl.Business;
 
 namespace ParentControl
 {
@@ -15,6 +16,8 @@ namespace ParentControl
         public const int MILISECONDS_PER_MINUTE = 60000;
 
         protected ILog logger = LogManager.GetLogger(typeof(ParentControlScheduledJob));
+
+        private BaseSettingsBusiness baseSettings = new BaseSettingsBusiness();
 
         private static long? timeNow = null;
         private volatile static Object synobj = new Object();
@@ -90,8 +93,13 @@ namespace ParentControl
                 // If we can not continue, shutdown computer ...
                 if (!canContinue)
                 {
-                    // TODO ...
                     logger.Info("Condition is not truthfully, run command for shutdown ...");
+
+                    BaseSettings bs = baseSettings.GetBaseSettings();
+                    if (bs.ShutdownCommand != null && bs.ShutdownCommand.Length > 0)
+                    {
+                        System.Diagnostics.Process.Start("cmd", "/C \"" + bs.ShutdownCommand + "\"");
+                    }
                 }
             }
         }
