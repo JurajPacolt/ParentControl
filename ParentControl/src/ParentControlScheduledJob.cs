@@ -72,6 +72,8 @@ namespace ParentControl
                         continue;
                     }
 
+                    // FIXME conditions are bad ... fix it
+
                     if (rule.DayOfWeek != null && rule.DayOfWeek.Value != (int)now.DayOfWeek) {
                         canContinue = false;
                     }
