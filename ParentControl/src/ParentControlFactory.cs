@@ -51,7 +51,7 @@ namespace ParentControl
 
                 // Now it will be scheduler.
                 logger.Info("Getting scheduler instance from factory.");
-                scheduler = schedulerFactory.GetScheduler();
+                scheduler = (IScheduler)schedulerFactory.GetScheduler();
 
                 // Create job.
                 logger.Info("Creating job instance.");

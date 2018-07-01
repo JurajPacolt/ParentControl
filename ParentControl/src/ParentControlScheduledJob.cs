@@ -11,7 +11,7 @@ namespace ParentControl
     /// <summary>
     /// Main job for scheduling.
     /// </summary>
-    public class ParentControlScheduledJob : IJob
+    public class ParentControlScheduledJob : Quartz.IJob
     {
         public const int MILISECONDS_PER_MINUTE = 60000;
 
@@ -25,7 +25,7 @@ namespace ParentControl
         /// <summary>
         /// </summary>
         /// <param name="context"></param>
-        public void Execute(IJobExecutionContext context)
+        public void Execute(Quartz.IJobExecutionContext context)
         {
             long now = (DateTime.Now.Ticks / TimeSpan.TicksPerMillisecond);
             if (timeNow != null)
@@ -106,6 +106,10 @@ namespace ParentControl
             }
         }
 
+        System.Threading.Tasks.Task Quartz.IJob.Execute(Quartz.IJobExecutionContext context)
+        {
+            throw new NotImplementedException();
+        }
     }
 
 }
