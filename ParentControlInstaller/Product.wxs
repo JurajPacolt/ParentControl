@@ -108,8 +108,6 @@
         <File Source="../ParentControl/bin/Debug/ParentControl.exe" />
         <File Source="../ParentControl/bin/Debug/ParentControl.pdb" />
         <File Source="../ParentControl/bin/Debug/ParentControl.exe.config" />
-        <File Source="../ParentControl/bin/Debug/ParentControl.vshost.exe" />
-        <File Source="../ParentControl/bin/Debug/ParentControl.vshost.exe.config" />
         <File Source="../ParentControl/bin/Debug/ParentControlClient.exe" />
         <File Source="../ParentControl/bin/Debug/ParentControlClient.pdb" />
         <File Source="../ParentControl/bin/Debug/ParentControlCommon.dll" />
