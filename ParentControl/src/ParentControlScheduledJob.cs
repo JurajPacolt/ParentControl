@@ -66,30 +66,6 @@ namespace ParentControl
                 RulesDAO rulesDao = new RulesDAO();
                 Rule[] rules = rulesDao.ListRules();
                 bool canContinue = true;
-                foreach (Rule rule in rules)
-                {
-                    if (!rule.Enabled) {
-                        continue;
-                    }
-
-                    // FIXME conditions are bad ... fix it
-
-                    if (rule.DayOfWeek != null && rule.DayOfWeek.Value != (int)now.DayOfWeek) {
-                        canContinue = false;
-                    }
-
-                    if (rule.FromDateTime != null && !(rule.FromDateTime.Value.CompareTo(now) <= 0)) {
-                        canContinue = false;
-                    }
-
-                    if (rule.ToDateTime != null && !(rule.ToDateTime.Value.CompareTo(now) >= 0)) {
-                        canContinue = false;
-                    }
-
-                    if (rule.DurationInMinutes != null && ov.Duration != null && !((long)(rule.DurationInMinutes * MILISECONDS_PER_MINUTE) >= ov.Duration)) {
-                        canContinue = false;
-                    }
-                }
 
 
                 // If we can not continue, shutdown computer ...
@@ -104,6 +80,48 @@ namespace ParentControl
                     }
                 }
             }
+        }
+
+        /// <summary>
+        /// Checking whether for can be shutting down or not. True value is No :).
+        /// </summary>
+        /// <param name="now"></param>
+        /// <param name="rules"></param>
+        /// <param name="ov"></param>
+        /// <returns></returns>
+        public bool CanContinue(DateTime now, ObservedValues ov, Rule[] rules)
+        {
+            foreach (Rule rule in rules)
+            {
+                if (!rule.Enabled)
+                {
+                    continue;
+                }
+
+                // FIXME conditions are bad ... fix it
+
+                if (rule.DayOfWeek != null && rule.DayOfWeek != (int)now.DayOfWeek)
+                {
+                    return false;
+                }
+
+                if (rule.FromDateTime != null && now.CompareTo(rule.FromDateTime) <= 0)
+                {
+                    return false;
+                }
+
+                if (rule.ToDateTime != null && now.CompareTo(rule.ToDateTime) >= 0)
+                {
+                    return false;
+                }
+
+                if (rule.DurationInMinutes != null && ov.Duration != null && ov.Duration >= ((long)(rule.DurationInMinutes * MILISECONDS_PER_MINUTE)))
+                {
+                    return false;
+                }
+            }
+
+            return true;
         }
 
     }
