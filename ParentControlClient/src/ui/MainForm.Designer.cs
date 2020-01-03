@@ -32,13 +32,8 @@
         private void InitializeComponent()
         {
             this.toolStripMain = new System.Windows.Forms.ToolStrip();
-            this.btnNewRule = new System.Windows.Forms.ToolStripButton();
-            this.btnModifyRule = new System.Windows.Forms.ToolStripButton();
-            this.btnDeleteRule = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
-            this.btnSettings = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
-            this.btnReset = new System.Windows.Forms.ToolStripButton();
             this.dataGridViewRules = new System.Windows.Forms.DataGridView();
             this.colName = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.colFrom = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -47,6 +42,13 @@
             this.colDayOfWeek = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.colEnabled = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.backgroundWorker = new System.ComponentModel.BackgroundWorker();
+            this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
+            this.btnNewRule = new System.Windows.Forms.ToolStripButton();
+            this.btnModifyRule = new System.Windows.Forms.ToolStripButton();
+            this.btnDeleteRule = new System.Windows.Forms.ToolStripButton();
+            this.btnSettings = new System.Windows.Forms.ToolStripButton();
+            this.btnReset = new System.Windows.Forms.ToolStripButton();
+            this.btnInfo = new System.Windows.Forms.ToolStripButton();
             this.toolStripMain.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewRules)).BeginInit();
             this.SuspendLayout();
@@ -62,72 +64,24 @@
             this.toolStripSeparator1,
             this.btnSettings,
             this.toolStripSeparator2,
-            this.btnReset});
+            this.btnReset,
+            this.toolStripSeparator3,
+            this.btnInfo});
             this.toolStripMain.LayoutStyle = System.Windows.Forms.ToolStripLayoutStyle.VerticalStackWithOverflow;
             this.toolStripMain.Location = new System.Drawing.Point(0, 0);
             this.toolStripMain.Name = "toolStripMain";
             this.toolStripMain.Size = new System.Drawing.Size(59, 442);
             this.toolStripMain.TabIndex = 0;
             // 
-            // btnNewRule
-            // 
-            this.btnNewRule.Image = global::ParentControlClient.Properties.Resources.add;
-            this.btnNewRule.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.btnNewRule.Name = "btnNewRule";
-            this.btnNewRule.Size = new System.Drawing.Size(56, 35);
-            this.btnNewRule.Text = "New rule";
-            this.btnNewRule.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
-            this.btnNewRule.Click += new System.EventHandler(this.btnNewRule_Click);
-            // 
-            // btnModifyRule
-            // 
-            this.btnModifyRule.Image = global::ParentControlClient.Properties.Resources.modify;
-            this.btnModifyRule.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.btnModifyRule.Name = "btnModifyRule";
-            this.btnModifyRule.Size = new System.Drawing.Size(56, 35);
-            this.btnModifyRule.Text = "Modify";
-            this.btnModifyRule.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
-            this.btnModifyRule.Click += new System.EventHandler(this.btnModifyRule_Click);
-            // 
-            // btnDeleteRule
-            // 
-            this.btnDeleteRule.Image = global::ParentControlClient.Properties.Resources.delete;
-            this.btnDeleteRule.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.btnDeleteRule.Name = "btnDeleteRule";
-            this.btnDeleteRule.Size = new System.Drawing.Size(56, 35);
-            this.btnDeleteRule.Text = "Delete";
-            this.btnDeleteRule.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
-            this.btnDeleteRule.Click += new System.EventHandler(this.btnDeleteRule_Click);
-            // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
             this.toolStripSeparator1.Size = new System.Drawing.Size(56, 6);
             // 
-            // btnSettings
-            // 
-            this.btnSettings.Image = global::ParentControlClient.Properties.Resources.settings;
-            this.btnSettings.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.btnSettings.Name = "btnSettings";
-            this.btnSettings.Size = new System.Drawing.Size(56, 35);
-            this.btnSettings.Text = "Settings";
-            this.btnSettings.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
-            this.btnSettings.Click += new System.EventHandler(this.btnSettings_Click);
-            // 
             // toolStripSeparator2
             // 
             this.toolStripSeparator2.Name = "toolStripSeparator2";
             this.toolStripSeparator2.Size = new System.Drawing.Size(56, 6);
-            // 
-            // btnReset
-            // 
-            this.btnReset.Image = global::ParentControlClient.Properties.Resources.reset;
-            this.btnReset.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.btnReset.Name = "btnReset";
-            this.btnReset.Size = new System.Drawing.Size(56, 35);
-            this.btnReset.Text = "Reset";
-            this.btnReset.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
-            this.btnReset.Click += new System.EventHandler(this.btnReset_Click);
             // 
             // dataGridViewRules
             // 
@@ -193,6 +147,71 @@
             // 
             this.backgroundWorker.WorkerReportsProgress = true;
             // 
+            // toolStripSeparator3
+            // 
+            this.toolStripSeparator3.Name = "toolStripSeparator3";
+            this.toolStripSeparator3.Size = new System.Drawing.Size(56, 6);
+            // 
+            // btnNewRule
+            // 
+            this.btnNewRule.Image = global::ParentControlClient.Properties.Resources.add;
+            this.btnNewRule.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btnNewRule.Name = "btnNewRule";
+            this.btnNewRule.Size = new System.Drawing.Size(56, 35);
+            this.btnNewRule.Text = "New rule";
+            this.btnNewRule.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.btnNewRule.Click += new System.EventHandler(this.btnNewRule_Click);
+            // 
+            // btnModifyRule
+            // 
+            this.btnModifyRule.Image = global::ParentControlClient.Properties.Resources.modify;
+            this.btnModifyRule.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btnModifyRule.Name = "btnModifyRule";
+            this.btnModifyRule.Size = new System.Drawing.Size(56, 35);
+            this.btnModifyRule.Text = "Modify";
+            this.btnModifyRule.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.btnModifyRule.Click += new System.EventHandler(this.btnModifyRule_Click);
+            // 
+            // btnDeleteRule
+            // 
+            this.btnDeleteRule.Image = global::ParentControlClient.Properties.Resources.delete;
+            this.btnDeleteRule.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btnDeleteRule.Name = "btnDeleteRule";
+            this.btnDeleteRule.Size = new System.Drawing.Size(56, 35);
+            this.btnDeleteRule.Text = "Delete";
+            this.btnDeleteRule.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.btnDeleteRule.Click += new System.EventHandler(this.btnDeleteRule_Click);
+            // 
+            // btnSettings
+            // 
+            this.btnSettings.Image = global::ParentControlClient.Properties.Resources.settings;
+            this.btnSettings.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btnSettings.Name = "btnSettings";
+            this.btnSettings.Size = new System.Drawing.Size(56, 35);
+            this.btnSettings.Text = "Settings";
+            this.btnSettings.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.btnSettings.Click += new System.EventHandler(this.btnSettings_Click);
+            // 
+            // btnReset
+            // 
+            this.btnReset.Image = global::ParentControlClient.Properties.Resources.reset;
+            this.btnReset.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btnReset.Name = "btnReset";
+            this.btnReset.Size = new System.Drawing.Size(56, 35);
+            this.btnReset.Text = "Reset";
+            this.btnReset.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.btnReset.Click += new System.EventHandler(this.btnReset_Click);
+            // 
+            // btnInfo
+            // 
+            this.btnInfo.Image = global::ParentControlClient.Properties.Resources.information;
+            this.btnInfo.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btnInfo.Name = "btnInfo";
+            this.btnInfo.Size = new System.Drawing.Size(56, 35);
+            this.btnInfo.Text = "Info";
+            this.btnInfo.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.btnInfo.Click += new System.EventHandler(this.btnInfo_Click);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -227,6 +246,8 @@
         private System.Windows.Forms.ToolStripButton btnSettings;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
         private System.Windows.Forms.ToolStripButton btnReset;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator3;
+        private System.Windows.Forms.ToolStripButton btnInfo;
     }
 }
 

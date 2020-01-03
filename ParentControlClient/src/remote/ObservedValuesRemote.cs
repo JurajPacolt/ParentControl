@@ -1,10 +1,6 @@
 ﻿/* Created on 9.10.2016 */
 using ParentControlClient.Remote.Base;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using ParentControl.ObjectModel;
 
 namespace ParentControlClient.Remote
 {
@@ -19,6 +15,15 @@ namespace ParentControlClient.Remote
         public void Reset()
         {
             RemoteCommFactory.Instance.Call("ObservedValuesBusiness.Reset", null, null);
+        }
+
+        /// <summary>
+        /// Getting actual observed values.
+        /// </summary>
+        /// <returns></returns>
+        public ObservedValues GetObservedValues()
+        {
+            return (ObservedValues)RemoteCommFactory.Instance.Call("ObservedValuesBusiness.GetObservedValues", typeof(ObservedValues), null);
         }
     }
 

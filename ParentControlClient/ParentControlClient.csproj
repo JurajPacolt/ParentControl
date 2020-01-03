@@ -183,6 +183,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="app_icon.ico" />
+    <Content Include="gfx\information.png" />
     <None Include="gfx\reset.png" />
     <None Include="gfx\settings.png" />
     <None Include="gfx\modify.png" />

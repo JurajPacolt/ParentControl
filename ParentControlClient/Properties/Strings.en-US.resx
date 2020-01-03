@@ -162,6 +162,9 @@
   <data name="from_date_and_time" xml:space="preserve">
     <value>From date and time</value>
   </data>
+  <data name="information" xml:space="preserve">
+    <value>Info</value>
+  </data>
   <data name="minutes" xml:space="preserve">
     <value>minutes</value>
   </data>

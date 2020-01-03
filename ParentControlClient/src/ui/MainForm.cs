@@ -297,6 +297,31 @@ namespace ParentControlClient.UI
                 remote.Reset();
             }
         }
+
+        /// <summary>
+        /// Button - show information.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void btnInfo_Click(object sender, EventArgs e)
+        {
+            ObservedValuesRemote remote = new ObservedValuesRemote();
+            ObservedValues ov = remote.GetObservedValues();
+
+            String actualDate =
+                (ov.ActualDate != null
+                ? ov.ActualDate.Value.ToString(Thread.CurrentThread.CurrentCulture.DateTimeFormat.ShortDatePattern)
+                : "");
+            String duration = "";
+            if (ov.Duration != null)
+            {
+                TimeSpan t = TimeSpan.FromMilliseconds(ov.Duration.Value);
+                string time = string.Format("{0:D2}h:{1:D2}m:{2:D2}s:{3:D3}ms", t.Hours, t.Minutes, t.Seconds, t.Milliseconds);
+                duration = time;
+            }
+
+            MessageBox.Show(actualDate + "\n" + duration, ParentControlClient.Strings.GetString("information"));
+        }
     }
 
 }

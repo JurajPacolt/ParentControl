@@ -68,7 +68,7 @@ namespace ParentControlManager
         {
             RemoteInformationDialog dlg = new RemoteInformationDialog(connection);
             dlg.ShowDialog(this);
-            // TODO
+            // TODO Dopracovat zobrazenie remote informacii.
         }
 
         /// <summary>
