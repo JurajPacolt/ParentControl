@@ -65,7 +65,7 @@ namespace ParentControl
                 // We need list of the rules. And control it.
                 RulesDAO rulesDao = new RulesDAO();
                 Rule[] rules = rulesDao.ListRules();
-                bool canContinue = true;
+                bool canContinue = CanContinue(now, ov, rules);
 
 
                 // If we can not continue, shutdown computer ...
