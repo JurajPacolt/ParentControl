@@ -33,6 +33,13 @@ namespace ParentControl.UnitTests
             r1.DurationInMinutes = 60;
             list.Add(r1);
 
+            Rule r2 = new Rule();
+            r2.Name = "Test 2";
+            r2.Enabled = true;
+            r2.DayOfWeek = (int?)System.DayOfWeek.Friday; // 05.01.2018 is friday
+            r2.DurationInMinutes = 60;
+            list.Add(r2);
+
             Assert.IsTrue(pcsj.CanContinue(now, ov, list.ToArray()));
         }
     }
