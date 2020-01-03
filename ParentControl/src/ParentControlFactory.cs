@@ -87,6 +87,8 @@ namespace ParentControl
                     scheduler.ScheduleJob(job, trigger);
 
                     scheduler.StartDelayed(TimeSpan.FromSeconds((int)bs.CheckInterval));
+
+                    scheduler.Start();
                 }
             }
 
