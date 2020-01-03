@@ -27,6 +27,8 @@ namespace ParentControl
         private IJobDetail job = null;
         private ITrigger trigger = null;
 
+        private volatile bool flagCommandWasAlreadyExecuted = false;
+
         /// <summary>
         /// Default constructor.
         /// </summary>
@@ -79,7 +81,7 @@ namespace ParentControl
                         .WithIdentity("myTrigger", "group1")
                         .StartAt(DateTimeOffset.Now.AddSeconds((double)(bs.DelayStart != null ? bs.DelayStart : 0)))
                         .WithSimpleSchedule(x => x
-                        .WithIntervalInSeconds(5)
+                        .WithIntervalInSeconds(bs.CheckInterval != null && bs.CheckInterval.HasValue ? bs.CheckInterval.Value : 5)
                         .RepeatForever())
                         .Build();
 
@@ -149,6 +151,11 @@ namespace ParentControl
                     scheduler.Start();
                 }
             }
+        }
+
+        public bool FlagCommandWasAlreadyExecuted
+        {
+            get; set;
         }
 
         /// <summary>

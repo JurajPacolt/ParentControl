@@ -74,9 +74,14 @@ namespace ParentControl
                     logger.Info("Condition is not truthfully, run command for shutdown ...");
 
                     BaseSettings bs = baseSettings.GetBaseSettings();
-                    if (bs.ShutdownCommand != null && bs.ShutdownCommand.Length > 0)
+                    if (bs.ShutdownCommand != null && bs.ShutdownCommand.Length > 0 && !ParentControlFactory.Instance.FlagCommandWasAlreadyExecuted)
                     {
-                        System.Diagnostics.Process.Start("cmd", "/C \"" + bs.ShutdownCommand + "\"");
+                        //System.Diagnostics.Process.Start("cmd", "/C \"" + bs.ShutdownCommand + "\"");
+                        ParentControlFactory.Instance.FlagCommandWasAlreadyExecuted = true;
+                    }
+                    else if (ParentControlFactory.Instance.FlagCommandWasAlreadyExecuted)
+                    {
+                        logger.Info("Attention, command is already running, is waiting time for done.");
                     }
                 }
             }
