@@ -5,6 +5,8 @@ using ParentControl.ObjectModel;
 using Quartz;
 using System;
 using ParentControl.Business;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace ParentControl
 {
@@ -76,7 +78,7 @@ namespace ParentControl
                     BaseSettings bs = baseSettings.GetBaseSettings();
                     if (bs.ShutdownCommand != null && bs.ShutdownCommand.Length > 0 && !ParentControlFactory.Instance.FlagCommandWasAlreadyExecuted)
                     {
-                        //System.Diagnostics.Process.Start("cmd", "/C \"" + bs.ShutdownCommand + "\"");
+                        System.Diagnostics.Process.Start("cmd", "/C \"" + bs.ShutdownCommand + "\"");
                         ParentControlFactory.Instance.FlagCommandWasAlreadyExecuted = true;
                     }
                     else if (ParentControlFactory.Instance.FlagCommandWasAlreadyExecuted)
@@ -96,37 +98,16 @@ namespace ParentControl
         /// <returns></returns>
         public bool CanContinue(DateTime now, ObservedValues ov, Rule[] rules)
         {
-            foreach (Rule rule in rules)
-            {
-                if (!rule.Enabled)
-                {
-                    continue;
-                }
-
-                // FIXME conditions are bad ... fix it
-
-                if (rule.DayOfWeek != null && rule.DayOfWeek != (int)now.DayOfWeek)
-                {
-                    return false;
-                }
-
-                if (rule.FromDateTime != null && now.CompareTo(rule.FromDateTime) <= 0)
-                {
-                    return false;
-                }
-
-                if (rule.ToDateTime != null && now.CompareTo(rule.ToDateTime) >= 0)
-                {
-                    return false;
-                }
-
-                if (rule.DurationInMinutes != null && ov.Duration != null && ov.Duration >= ((long)(rule.DurationInMinutes * MILISECONDS_PER_MINUTE)))
-                {
-                    return false;
-                }
-            }
-
-            return true;
+            List<Rule> list = rules.OfType<Rule>().ToList().FindAll(rule => rule.Enabled);
+            List<Rule> negativeRules = list.Where(rule =>
+                (rule.DayOfWeek != null && rule.DayOfWeek != (int)now.DayOfWeek)
+                || (rule.FromDateTime != null && now.CompareTo(rule.FromDateTime) <= 0)
+                || (rule.ToDateTime != null && now.CompareTo(rule.ToDateTime) >= 0)
+                || (rule.DurationInMinutes != null && ov.Duration != null && ov.Duration >= ((long)(rule.DurationInMinutes * MILISECONDS_PER_MINUTE)))).ToList();
+            negativeRules.ForEach(rule => {
+                list.Remove(rule);
+            });
+            return (list.Count > 0);
         }
 
     }
