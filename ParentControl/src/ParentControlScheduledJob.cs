@@ -87,6 +87,9 @@ namespace ParentControl
                     {
                         logger.Info("Attention, command is already running, is waiting time for done.");
                     }
+                } else
+                {
+                    ParentControlFactory.Instance.FlagCommandWasAlreadyExecuted = false;
                 }
             }
         }
