@@ -78,7 +78,9 @@ namespace ParentControl
                     BaseSettings bs = baseSettings.GetBaseSettings();
                     if (bs.ShutdownCommand != null && bs.ShutdownCommand.Length > 0 && !ParentControlFactory.Instance.FlagCommandWasAlreadyExecuted)
                     {
-                        //System.Diagnostics.Process.Start("cmd", "/C \"" + bs.ShutdownCommand + "\"");
+                        System.Diagnostics.Process process =
+                            System.Diagnostics.Process.Start("cmd", "/C \"" + bs.ShutdownCommand + "\"");
+                        // TODO Do something with process outputs.
                         ParentControlFactory.Instance.FlagCommandWasAlreadyExecuted = true;
                     }
                     else if (ParentControlFactory.Instance.FlagCommandWasAlreadyExecuted)
