@@ -46,7 +46,7 @@ namespace ParentControl.UnitTests
         [TestMethod]
         public void TestRulesForCanContinueOnlyDaysOfWeek()
         {
-            DateTime now = DateTime.ParseExact("05.01.2018 13:45", "dd.MM.yyyy HH:mm", null);
+            DateTime now = DateTime.ParseExact("06.01.2018 13:45", "dd.MM.yyyy HH:mm", null);
 
             ObservedValues ov = new ObservedValues();
             ov.ActualDate = now;
@@ -64,9 +64,16 @@ namespace ParentControl.UnitTests
             Rule r2 = new Rule();
             r2.Name = "Test 2";
             r2.Enabled = true;
-            r2.DayOfWeek = (int?)System.DayOfWeek.Friday; // 05.01.2018 is friday
+            r2.DayOfWeek = (int?)System.DayOfWeek.Friday;
             r2.DurationInMinutes = 60;
             list.Add(r2);
+
+            Rule r3 = new Rule();
+            r3.Name = "Test 3";
+            r3.Enabled = true;
+            r3.DayOfWeek = (int?)System.DayOfWeek.Saturday;
+            r3.DurationInMinutes = 60;
+            list.Add(r3);
 
             Assert.IsTrue(pcsj.CanContinue(now, ov, list.ToArray()));
         }
