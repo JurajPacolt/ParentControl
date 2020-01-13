@@ -27,8 +27,6 @@ namespace ParentControl
         private IJobDetail job = null;
         private ITrigger trigger = null;
 
-        private volatile bool flagCommandWasAlreadyExecuted = false;
-
         /// <summary>
         /// Default constructor.
         /// </summary>

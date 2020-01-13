@@ -76,20 +76,12 @@ namespace ParentControl
                     logger.Info("Condition is not truthfully, run command for shutdown ...");
 
                     BaseSettings bs = baseSettings.GetBaseSettings();
-                    if (bs.ShutdownCommand != null && bs.ShutdownCommand.Length > 0 && !ParentControlFactory.Instance.FlagCommandWasAlreadyExecuted)
+                    if (bs.ShutdownCommand != null && bs.ShutdownCommand.Length > 0)
                     {
                         System.Diagnostics.Process process =
                             System.Diagnostics.Process.Start("cmd", "/C \"" + bs.ShutdownCommand + "\"");
                         // TODO Do something with process outputs.
-                        ParentControlFactory.Instance.FlagCommandWasAlreadyExecuted = true;
                     }
-                    else if (ParentControlFactory.Instance.FlagCommandWasAlreadyExecuted)
-                    {
-                        logger.Info("Attention, command is already running, is waiting time for done.");
-                    }
-                } else
-                {
-                    ParentControlFactory.Instance.FlagCommandWasAlreadyExecuted = false;
                 }
             }
         }
